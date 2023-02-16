@@ -1,11 +1,9 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import router from "./router";
-
+import BookInfo from "./components/BookInfo.vue";
 import "./assets/main.css";
 
 const app = createApp(App);
-
-app.use(router);
+app.component("book-info", BookInfo);
 
 app.mount("#app");
