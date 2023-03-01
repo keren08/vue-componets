@@ -1,16 +1,36 @@
 <script>
 export default{
+  props: {
+    id:{
+    type:String,
+    required :true
+    },
+    title:{
+    type:String,
+    required :true
+    },
+    author:{
+    type:String,
+    required :true
+    },
+
+    realseDate:{
+    type:String,
+    required :true
+    },
+    isLike:{
+    type:String,
+    required :false,
+    default:'0',
+    validator: function(value){
+      return value ==="1"|| value==="0";
+    }
+    }
+    },
     data(){
         return{
             detailsAreVisible:false,
-            book:
-                {
-                    id:1,
-                    title:"Orgullo y prejuicio",
-                    author:"Jane Austin",
-                    realseDate:"1813-01-28",
-                    img:'orgullo.jpg'
-                }
+            bookIsLike: this.isLike,
                                    
         };
     },
@@ -19,9 +39,13 @@ export default{
         toggleDetails(){
             this.detailsAreVisible = !this.detailsAreVisible;
         },
-        getImgUrl(){
-            return this.book.img;
+      toggleFavorites(){
+        if(this.bookIsLike==='1'){
+          this.bookIsLike ='0';
+        }else{
+          this.bookIsLike ='1';
         }
+      }
     },
 }
 </script>
@@ -30,11 +54,12 @@ export default{
 <template>
 
  <li class="lista">
-    <h1>{{book.author}}</h1>
+    <h1>{{title}}{{bookIsLike ==='1'?"(like)":''}}</h1>
      <button type="button" @click="toggleDetails">{{detailsAreVisible ? "Hide":"Show"}}</button>
+    <button type="button" @click="toggleFavorites">Favorite</button>
     <ul v-if="detailsAreVisible">
-    <li><strong>Author:</strong>{{book.author}}</li>
-    <li><strong>Realse Date:</strong>{{book.realseDate}}</li>
+    <li><strong>Author:</strong>{{author}}</li>
+    <li><strong>Realse Date:</strong>{{realseDate}}</li>
     </ul>
  </li>
 
